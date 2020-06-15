@@ -1,0 +1,217 @@
+@model MvcApp.balaViewModel
+
+@{
+
+Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+   <head>
+
+      <meta charset="utf-8">
+
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Template</title>
+
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+   </head>
+
+   <body>
+
+      <div class="container">
+
+         <div ng-app="ApApp" ng-controller="ApCtrl">
+
+            <table class="Grid" cellspacing="0" rules="all" border="1"  style="border-collapse:collapse;">
+
+               <tr>
+
+                  <th scope="col">CategoryId</th>
+
+                  <th scope="col">ParentCategoryId</th>
+
+                  <th scope="col">CategoryName</th>
+
+                  <th scope="col">CategoryKeyword</th>
+
+               </tr>
+
+               <tr>
+
+                  <td>100</td>
+
+                  <td>-1</td>
+
+                  <td>Business</td>
+
+                  <td>Money</td>
+
+               </tr>
+
+               <tr>
+
+                  <td>200</td>
+
+                  <td>-1</td>
+
+                  <td>Tutoring</td>
+
+                  <td>Teaching</td>
+
+               </tr>
+
+               <tr>
+
+                  <td>101</td>
+
+                  <td>100</td>
+
+                  <td>Accounting</td>
+
+                  <td>Taxes</td>
+
+               </tr>
+
+               <tr>
+
+                  <td>102</td>
+
+                  <td>100</td>
+
+                  <td>Taxation</td>
+
+                  <td>&nbsp;</td>
+
+               </tr>
+
+               <tr>
+
+                  <td>201</td>
+
+                  <td>200</td>
+
+                  <td>Computer</td>
+
+                  <td>&nbsp;</td>
+
+               </tr>
+
+               <tr>
+
+                  <td>103</td>
+
+                  <td>101</td>
+
+                  <td>Corporate Tax</td>
+
+                  <td>&nbsp;</td>
+
+               </tr>
+
+               <tr>
+
+                  <td>202</td>
+
+                  <td>201</td>
+
+                  <td>Operating System</td>
+
+                  <td>&nbsp;</td>
+
+               </tr>
+
+               <tr>
+
+                  <td>109</td>
+
+                  <td>101</td>
+
+                  <td>Small business Tax</td>
+
+                  <td>&nbsp;</td>
+
+               </tr>
+
+            </table>
+
+         </div>
+
+         <div class="form-group">
+
+                                    <label for="sideOne">Enter Category ID:</label>
+
+                                    <input type="number" step="1"
+
+                                        pattern="\d+(\.\d*)?"
+
+                                        class="form-control" id="sideOne"
+
+                                        ng-model="catId">
+
+                                </div>
+
+	             <div class="form-group">
+
+	                        <label for="sideTwo">Enter Category Level:</label>
+
+	                        <input type="number" step="1"
+
+	                            pattern="\d+(\.\d*)?"
+
+	                            class="form-control" id="sideTwo"
+
+	                            ng-model="catLevel">
+
+	                    </div>
+
+	                </div>
+
+         <div> <button type="button" class="btn btn-success" ng-click="calculateCategory()">Get Result</button>
+
+<button type="button" class="btn btn-success" ng-click="calculateLevel()">Get Level Result</button>
+
+</div>
+
+         <div class="row">
+
+            <div class="col-sm-6">
+
+               <div id="resultDiv"></div>
+
+            </div>
+
+<div class="col-sm-6">
+
+	<div id="levelDiv"></div>
+
+	</div>
+
+         </div>
+
+      </div>
+
+      </div>
+
+      <!-- JS includes -->
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+      <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+      <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+      <script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+
+   </body>
+
+</html>
