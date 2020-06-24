@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace categoriessample
+{
+    class Program
+    {
+        public class Category
+        {
+            public int CategoryId;
+            public int ParentCategoryId;
+            public string Name;
+            public string Keywords = string.Empty;
+            public int Level;
+        }
+
+        static void Main(string[] args)
+        {
+            List<Category> catlist = new List<Category>();
+            catlist.Add(new Category() { CategoryId = 100, ParentCategoryId = -1, Name = "Business", Keywords = "Money" });
+            catlist.Add(new Category() { CategoryId = 200, ParentCategoryId = -1, Name = "Tutoring", Keywords = "Teaching" });
+            catlist.Add(new Category() { CategoryId = 101, ParentCategoryId = 100, Name = "Accounting", Keywords = "Taxes" });
+            catlist.Add(new Category() { CategoryId = 102, ParentCategoryId = 100, Name = "Taxation" });
+            catlist.Add(new Category() { CategoryId = 201, ParentCategoryId = 200, Name = "Computer" });
+            catlist.Add(new Category() { CategoryId = 103, ParentCategoryId = 101, Name = "Corporate Tax" });
+            catlist.Add(new Category() { CategoryId = 202, ParentCategoryId = 201, Name = "Operating System" });
+            catlist.Add(new Category() { CategoryId = 109, ParentCategoryId = 101, Name = "Small business Tax" });
+
+            foreach (Category cat in catlist)
+            {
+                switch (cat.ParentCategoryId)
+                {
+                    case -1:
+                        cat.Level = 1;
+                        break;
+                    case 100:
+                    case 200:
+                        cat.Level = 2;
+                        break;
+                    default:
+                        cat.Level = 3;
+                        break;
+                }
+            }
+            //hard code input for problem 1
+            string input = "201";
+           //hard code input for problem 2
+            //string input = "2";
+          
+
+            int command = 0;
+            if (!int.TryParse(input, out command))
+            {
+                Console.WriteLine("invalid input.");
+            }
+
+            switch (command)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    var leveldata = from x in catlist
+                                    where x.Level == command
+                                    select x;
+                    List<string> CatNames = new List<string>();
+                    if (leveldata.Any())
+                    {
+                        foreach (Category cat in leveldata)
+                            CatNames.Add(cat.CategoryId.ToString());
+                        Console.WriteLine($"Input: {input}; Output: {String.Join(", ", CatNames.ToArray())} ");
+                    }
+                    break;
+                default:
+                    var catdata = (from x in catlist
+                                   where x.CategoryId == command
+                                   select x).SingleOrDefault();
+                                   
+                                   
+                    if (catdata != null)
+                    {
+                        if (catdata.Keywords != string.Empty)
+                            Console.WriteLine($"Input: {catdata.CategoryId}; Output: ParentCategoryID={catdata.CategoryId.ToString()}, Name={catdata.Name}, Keywords = {catdata.Keywords}");
+                        else
+                        {
+                            int parentcatid = catdata.ParentCategoryId;
+                            string keyword = string.Empty;
+                            while (keyword == string.Empty)
+                            {
+                                var parentkey = (from y in catlist
+                                                 where y.CategoryId == parentcatid
+                                                 select y).SingleOrDefault();
+                                if (parentkey.Keywords == string.Empty)
+                                    parentcatid = parentkey.ParentCategoryId;
+                                else
+                                    keyword = parentkey.Keywords;
+                            }
+                            Console.WriteLine($"Input: {catdata.CategoryId}; Output: ParentCategoryID={catdata.CategoryId.ToString()}, Name={catdata.Name}, Keywords = {keyword}");
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+}
